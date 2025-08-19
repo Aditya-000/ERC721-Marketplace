@@ -6,6 +6,7 @@ export default function AddToList({ contract, wallet }) {
   const [tokenId, setTokenId] = useState("");
   const [price, setPrice] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSell = async () => {
     if (!tokenId || !price) {
@@ -50,7 +51,7 @@ export default function AddToList({ contract, wallet }) {
     }
 
     try {
-      setLoading(true);
+      setIsLoading(true);
 
       const tx = await contract.cancelListing(tokenId); 
       await tx.wait();
@@ -61,7 +62,7 @@ export default function AddToList({ contract, wallet }) {
       console.error("Error unlisting NFT:", error);
       toast.error(` An error occurred while unlisting your NFT: ${error.message}`);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -112,10 +113,10 @@ export default function AddToList({ contract, wallet }) {
          />
          <button
           onClick={handleUnlist}
-          disabled={loading}
+          disabled={isLoading}
           className="w-full py-3 mt-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 text-white rounded-lg font-semibold transition transform hover:scale-105"
         >
-          {loading ? "Unlisting..." : "Cancel"}
+          {isLoading ? "Unlisting..." : "Unlist"}
         </button>
 
       </div>

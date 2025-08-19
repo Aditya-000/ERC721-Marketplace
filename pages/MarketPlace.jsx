@@ -65,7 +65,10 @@ export default function Marketplace({ contract }) {
     }
 
     try {
-      const tx = await contract.BuyNFT(nft.id, { value: nft.priceEth });
+      const tx = await contract.BuyNFT(nft.id, 
+        {
+           value: ethers.parseEther(nft.price.toString()) 
+        });
       await tx.wait();
       toast.success(`NFT #${nft.id} bought for ${nft.price} ETH! 🎉`);
     } catch (error) {
