@@ -86,3 +86,7 @@ export default function MyNFTs({wallet , contract}) {
 }
 
 
+
+
+
+
