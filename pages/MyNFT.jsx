@@ -2,17 +2,20 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import NFTCard from '../components/NFTCard';
 import Loader from '../components/Loader';
+import { useAccount } from 'wagmi';
 
 
 
-export default function MyNFTs({wallet , contract}) {
+export default function MyNFTs({ contract}) {
   const [myNfts, setMyNfts] = useState([]);
   const [isloading , setIsLoading] = useState(false);
 
+  const account = useAccount();
+
   useEffect(() => {
-    let isMounted = true; 
+    let isMounted = true;
     const fetchMyNFTs = async () => {
-      if (!wallet || !contract) return; 
+      if (!account.address || !contract) return;
       setIsLoading(true);
       try {
         const nfts = await contract.getMyAllNFT();
@@ -26,21 +29,21 @@ export default function MyNFTs({wallet , contract}) {
             }
 
             let metadataurl = tokenURI;
-            
+
             const res = await fetch(metadataurl);
             const metadata = await res.json();
 
-          
+
             return {
               id: token,
               ...metadata,
             };
           })
-        )  
-       
-       
+        )
+
+
         if (isMounted) {
-          setMyNfts(nftData.filter(Boolean)); 
+          setMyNfts(nftData.filter(Boolean));
         }
 
       } catch (error) {
@@ -55,9 +58,9 @@ export default function MyNFTs({wallet , contract}) {
     fetchMyNFTs();
     setIsLoading(false);
     return () => { isMounted = false };
-  }, [wallet,contract]); 
+  }, [account.address,contract]);
 
-  if (!wallet && !contract) {
+  if (!account.address) {
     return (
       <div className="pt-14 min-h-screen bg-gradient-to-br text-center items-center justify-center flex from-gray-950 via-gray-900 to-black text-gray-100 px-6 py-8">
         <div className="text-center text-lg">
@@ -67,7 +70,17 @@ export default function MyNFTs({wallet , contract}) {
     );
   }
 
- 
+  if (!contract) {
+      return (
+      <div className="pt-14 min-h-screen bg-gradient-to-br text-center items-center justify-center flex from-gray-950 via-gray-900 to-black text-gray-100 px-6 py-8">
+        <div className="text-center text-lg">
+          NFT Contract instant is NULL
+        </div>
+      </div>
+    );
+  }
+
+
   return (
     <div className=" pt-14 min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-gray-100 px-6 py-8">
       {isloading ? (

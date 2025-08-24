@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { uploadFileToPinata , uploadJSONToPinata  } from "../utils/connectPinata";
 import toast from "react-hot-toast";
 
@@ -9,11 +9,11 @@ export default function Mint({contract}) {
   const[nftImage, setNftImage] = useState();
   //const [nftImageUrl, setNftImageUrl] = useState("");
   const [active, setActive] = useState(false);
-  
+
 
 
   const handleMint = async (e) => {
-  
+
     e.preventDefault();
     if (!nftName || !nftDescription || !nftImage) {
       toast.error(`Please fill in all fields before minting.`);
@@ -25,7 +25,7 @@ export default function Mint({contract}) {
       setActive(true);
       if (contract) {
       const imageUrl = await uploadFileToPinata(nftImage);
-      
+
 
       // Create metadata object
       const metadata = {
@@ -52,19 +52,13 @@ export default function Mint({contract}) {
       toast.error("Error minting NFT. Please try again.");
       return;
     }
-    
+
     setNftName("");
     setNftDescription("");
     setNftImage("");
     setActive(false);
-   
+
   }
-
-
-
-
-
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br pt-14 from-gray-950 via-gray-900 to-black text-gray-100 flex justify-center items-center px-4">
@@ -72,7 +66,7 @@ export default function Mint({contract}) {
         <h1 className="text-xl font-semibold mb-6 text-center tracking-wide">
           Mint Your NFT
         </h1>
-        
+
         <form className="flex flex-col gap-3 text-sm">
           <input
             type="text"
