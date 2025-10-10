@@ -19,7 +19,7 @@ export const uploadFileToPinata = async (file) => {
       },
     });
 
-    return `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`;
+    return `https://ipfs.io/ipfs/${res.data.IpfsHash}`;
   } catch (err) {
     console.error("File upload error:", err);
     throw err;
@@ -40,7 +40,7 @@ export const uploadJSONToPinata = async (jsonData) => {
       },
     });
 
-    return `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`;
+    return `https://ipfs.io/ipfs/${res.data.IpfsHash}`;
   } catch (err) {
     console.error("JSON upload error:", err);
     throw err;

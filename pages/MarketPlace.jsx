@@ -33,7 +33,7 @@ export default function Marketplace({ contract }) {
             const tokenURI = await contract.tokenURI(tokenId);
             const metadataUrl = tokenURI.replace(
               "ipfs://",
-              "https://gateway.pinata.cloud/ipfs/"
+              "https://ipfs.io/ipfs/"
             );
             const res = await fetch(metadataUrl);
             const metadata = await res.json();

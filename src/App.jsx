@@ -13,7 +13,7 @@ import { useWallet } from '../hooks/useWallet';
 function App() {
   const { account, contract, isConnecting, connect, logout } = useWallet();
 
-  // Function to connect to the wallet
+ 
  
 
   return (

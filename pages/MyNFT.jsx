@@ -3,6 +3,12 @@ import React from 'react';
 import NFTCard from '../components/NFTCard';
 import Loader from '../components/Loader';
 
+const getProxyUrl = (uri) => {
+  if (uri.startsWith("ipfs://")) {
+    return uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+  }
+  return uri;
+};
 
 
 export default function MyNFTs({wallet , contract}) {
@@ -25,7 +31,7 @@ export default function MyNFTs({wallet , contract}) {
               return null;
             }
 
-            let metadataurl = tokenURI;
+            let metadataurl = getProxyUrl(tokenURI);
             
             const res = await fetch(metadataurl);
             const metadata = await res.json();
