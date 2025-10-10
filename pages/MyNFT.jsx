@@ -7,7 +7,6 @@ import { readContract } from "wagmi/actions";
 import ABI from "../ABI";
 import contractAdd from "../contractAdd";
 
-<<<<<<< HEAD
 const getProxyUrl = (uri) => {
   if (uri.startsWith("ipfs://")) {
     return uri.replace("ipfs://", "https://ipfs.io/ipfs/");
@@ -16,10 +15,9 @@ const getProxyUrl = (uri) => {
 };
 
 
-export default function MyNFTs({wallet , contract}) {
-=======
+
 export default function MyNFTs() {
->>>>>>> a5fbf8eda8f578b74990eadb7e85b39bcae1e4c4
+
   const [myNfts, setMyNfts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -63,16 +61,9 @@ export default function MyNFTs() {
               return null;
             }
 
-<<<<<<< HEAD
             let metadataurl = getProxyUrl(tokenURI);
             
             const res = await fetch(metadataurl);
-=======
-            // Fetch metadata
-            const res = await fetch(
-              tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/")
-            );
->>>>>>> a5fbf8eda8f578b74990eadb7e85b39bcae1e4c4
             const metadata = await res.json();
 
             // Fetch listing status
@@ -89,8 +80,8 @@ export default function MyNFTs() {
             if (price && BigInt(price) > 0n) {
               isListed = true;
             }
-            } catch (e) {
-              // ignore error, treat as not listed
+            } catch (error) {
+              console.error("Error fetching listing status:", error);
             }
 
             return {

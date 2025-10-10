@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -11,11 +11,7 @@ import HomePage from '../components/HomePage';
 
 function App() {
 
-<<<<<<< HEAD
- 
- 
-=======
->>>>>>> a5fbf8eda8f578b74990eadb7e85b39bcae1e4c4
+
 
   return (
     <Router>
